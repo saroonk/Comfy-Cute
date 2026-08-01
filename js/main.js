@@ -25,12 +25,41 @@ document.addEventListener('DOMContentLoaded', function () {
   const header = document.querySelector('header');
   const backToTopBtn = document.querySelector('.btn-back-to-top');
 
+  // Dynamically push hero below the fixed announcement bar + navbar.
+  // Accounts for the announcement bar being auto-hidden on scroll (see below).
+  function adjustLayout() {
+    const barEl  = document.getElementById('announcementBar');
+    const navEl  = document.querySelector('header');
+    const heroEl = document.querySelector('.hero-section');
+    if (!navEl || !heroEl) return;
+
+    const announcementHidden = document.body.classList.contains('announcement-hidden');
+    const barH = barEl ? barEl.offsetHeight : 0;
+    const navH = navEl.offsetHeight;
+    const offset = announcementHidden ? navH : (barH + navH);
+
+    // Push the hero section down so it starts below the fixed bars
+    heroEl.style.marginTop = offset + 'px';
+  }
+
+  adjustLayout();
+  window.addEventListener('resize', adjustLayout);
+
   // Keep scrolled class for compact navbar padding on scroll
   window.addEventListener('scroll', function () {
-    if (window.scrollY > 80) {
+    const wasScrolled = header.classList.contains('scrolled');
+    const isScrolled = window.scrollY > 80;
+
+    if (isScrolled) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
+    }
+
+    // Header height changes slightly when its padding compacts —
+    // resync the hero offset once that transition has settled.
+    if (wasScrolled !== isScrolled) {
+      setTimeout(adjustLayout, 320);
     }
 
     if (backToTopBtn) {
@@ -48,23 +77,42 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Dynamically push hero below the fixed announcement bar + navbar
-  function adjustLayout() {
-    const barEl  = document.getElementById('announcementBar');
-    const navEl  = document.querySelector('header');
-    const heroEl = document.querySelector('.hero-section');
-    if (!navEl || !heroEl) return;
+  // ==========================================
+  // 2b. AUTO-HIDE / REVEAL ANNOUNCEMENT BAR ON SCROLL DIRECTION
+  // ==========================================
+  const REVEAL_NEAR_TOP = 60;   // always show the bar near the top of the page
+  const DIRECTION_THRESHOLD = 8; // ignore tiny scroll jitters (trackpads, momentum)
 
-    const barH   = barEl  ? barEl.offsetHeight  : 0;
-    const navH   = navEl.offsetHeight;
-    const offset = barH + navH;
+  let lastScrollY = window.scrollY;
+  let scrollTicking = false;
 
-    // Push the hero section down so it starts below the fixed bars
-    heroEl.style.marginTop = offset + 'px';
+  function setAnnouncementHidden(hidden) {
+    if (document.body.classList.contains('announcement-hidden') === hidden) return;
+    document.body.classList.toggle('announcement-hidden', hidden);
+    adjustLayout();
   }
 
-  adjustLayout();
-  window.addEventListener('resize', adjustLayout);
+  function handleAnnouncementScroll() {
+    const currentY = Math.max(window.scrollY, 0);
+    const diff = currentY - lastScrollY;
+
+    if (currentY <= REVEAL_NEAR_TOP) {
+      setAnnouncementHidden(false);
+      lastScrollY = currentY;
+    } else if (Math.abs(diff) > DIRECTION_THRESHOLD) {
+      setAnnouncementHidden(diff > 0); // scrolling down -> hide, scrolling up -> reveal
+      lastScrollY = currentY;
+    }
+
+    scrollTicking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!scrollTicking) {
+      window.requestAnimationFrame(handleAnnouncementScroll);
+      scrollTicking = true;
+    }
+  }, { passive: true });
 
   // ==========================================
   // 3. SEARCH OVERLAY TOGGLE
@@ -666,18 +714,132 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ==========================================
-  // 9. MOBILE NAVIGATION LOGIC
+  // 9. MOBILE NAVIGATION LOGIC — sliding multi-level panels
   // ==========================================
-  // Dropdowns and Mega menus for mobile side-drawer
-  const navMobileLinks = document.querySelectorAll('.nav-item-mega > .nav-link');
-  navMobileLinks.forEach(link => {
-    link.addEventListener('click', function (e) {
-      if (window.innerWidth < 992) {
-        e.preventDefault();
-        const parent = this.parentElement;
-        parent.classList.toggle('active-mobile-mega');
-      }
+  // Hand-rolled open/close (no Bootstrap Collapse): Collapse drives its own
+  // height-based show/hide lifecycle and only adds the class our slide-in
+  // CSS keys off of *after* that finishes — a needless ~300ms+ dead zone
+  // before the drawer visibly moves. A plain class toggle responds on the
+  // very next frame instead.
+  const navToggleBtn = document.getElementById('mobileNavToggle');
+  const navDrawer = document.getElementById('mobileNavDrawer');
+  const navPanelsWrap = navDrawer ? navDrawer.querySelector('.mobile-nav-panels') : null;
+
+  if (navToggleBtn && navDrawer && navPanelsWrap) {
+    const getPanel = (key) => navPanelsWrap.querySelector(`.mobile-nav-panel[data-panel="${key}"]`);
+    const rootPanel = getPanel('root');
+    if (rootPanel) rootPanel.setAttribute('data-active', 'true');
+
+    // Submenu thumbnails use data-src so nothing fetches until their panel
+    // is actually opened — the drawer never pays for 24 image requests
+    // just to show the root "Home / Women / Baby / …" list.
+    function hydratePanelImages(panel) {
+      panel.querySelectorAll('img[data-src]').forEach((img) => {
+        img.src = img.getAttribute('data-src');
+        img.removeAttribute('data-src');
+      });
+    }
+
+    function goToPanel(targetKey, direction) {
+      const current = navPanelsWrap.querySelector('.mobile-nav-panel[data-active="true"]') || rootPanel;
+      const target = getPanel(targetKey);
+      if (!target || target === current) return;
+
+      hydratePanelImages(target);
+
+      target.style.transition = 'none';
+      target.style.visibility = 'visible';
+      target.style.transform = direction === 'forward' ? 'translateX(100%)' : 'translateX(-100%)';
+      void target.offsetHeight; // force reflow before re-enabling transition
+      target.style.transition = '';
+
+      requestAnimationFrame(() => {
+        target.style.transform = 'translateX(0)';
+        current.style.transform = direction === 'forward' ? 'translateX(-100%)' : 'translateX(100%)';
+      });
+
+      current.removeAttribute('data-active');
+      target.setAttribute('data-active', 'true');
+      target.scrollTop = 0;
+
+      current.addEventListener('transitionend', function onEnd(e) {
+        if (e.target !== current) return;
+        current.style.visibility = 'hidden';
+        current.removeEventListener('transitionend', onEnd);
+      });
+    }
+
+    navPanelsWrap.querySelectorAll('[data-open-panel]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const key = btn.getAttribute('data-open-panel');
+        goToPanel(key, key === 'root' ? 'back' : 'forward');
+      });
     });
-  });
+
+    function resetToRootPanel() {
+      navPanelsWrap.querySelectorAll('.mobile-nav-panel').forEach((panel) => {
+        const isRoot = panel.dataset.panel === 'root';
+        panel.removeAttribute('data-active');
+        panel.style.transition = 'none';
+        panel.style.visibility = isRoot ? 'visible' : 'hidden';
+        panel.style.transform = isRoot ? 'translateX(0)' : 'translateX(100%)';
+        void panel.offsetHeight;
+        panel.style.transition = '';
+      });
+      if (rootPanel) rootPanel.setAttribute('data-active', 'true');
+    }
+
+    // ---- Background scroll lock ----
+    // position:fixed pins the page at its exact current scroll offset (the
+    // one reliable cross-browser way to stop touch-scroll / rubber-banding
+    // from reaching content behind a fixed overlay on mobile Safari/Chrome).
+    let lockedScrollY = 0;
+
+    function lockBodyScroll() {
+      lockedScrollY = window.scrollY || window.pageYOffset || 0;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${lockedScrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+      document.documentElement.classList.add('nav-drawer-open');
+      document.body.classList.add('nav-drawer-open');
+    }
+
+    function unlockBodyScroll() {
+      document.documentElement.classList.remove('nav-drawer-open');
+      document.body.classList.remove('nav-drawer-open');
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      window.scrollTo(0, lockedScrollY); // exact same spot, no jump to top
+    }
+
+    function openDrawer() {
+      lockBodyScroll();          // synchronous, no layout wait before the next line
+      navDrawer.classList.add('show'); // starts the transform transition on the next frame
+      navToggleBtn.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeDrawer() {
+      navDrawer.classList.remove('show');
+      navToggleBtn.setAttribute('aria-expanded', 'false');
+      unlockBodyScroll();
+    }
+
+    navToggleBtn.addEventListener('click', openDrawer);
+    navDrawer.querySelectorAll('.mobile-nav-close').forEach((btn) => {
+      btn.addEventListener('click', closeDrawer);
+    });
+
+    // Reset to the root panel only once the close animation actually finishes,
+    // so panels don't visibly snap back while still sliding off-screen.
+    navDrawer.addEventListener('transitionend', (e) => {
+      if (e.target !== navDrawer || e.propertyName !== 'transform') return;
+      if (!navDrawer.classList.contains('show')) resetToRootPanel();
+    });
+  }
 
 });
