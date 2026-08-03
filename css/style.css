@@ -753,6 +753,128 @@ header.scrolled .navbar {
   font-weight: 700;
 }
 
+/* Cart Drawer Close Button */
+.cart-drawer-close {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: var(--color-heading);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(30, 41, 59, 0.08);
+  transition: var(--transition-smooth);
+  flex-shrink: 0;
+}
+
+.cart-drawer-close:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.08);
+  box-shadow: 0 6px 16px rgba(30, 41, 59, 0.12);
+}
+
+.cart-drawer-close:active {
+  transform: scale(0.95);
+}
+
+/* Cart Action Buttons Container */
+.cart-action-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+@media (max-width: 576px) {
+  .cart-action-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Continue Shopping Button */
+.btn-cart-continue {
+  flex: 1;
+  background-color: var(--color-white);
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary) !important;
+  border-radius: 8px;
+  padding: 11px 24px;
+  height: 54px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-cart-continue:hover {
+  background-color: var(--color-bg-alt);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(140, 189, 188, 0.15);
+}
+
+.btn-cart-continue:active {
+  transform: translateY(0);
+}
+
+/* Proceed to Checkout Button */
+.btn-cart-checkout {
+  flex: 1;
+  background-color: var(--color-primary);
+  color: var(--color-white) !important;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 24px;
+  height: 54px;
+  font-weight: 600;
+  font-size: 0.9rem; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(140, 189, 188, 0.2);
+  text-decoration: none;
+}
+
+.btn-cart-checkout:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(140, 189, 188, 0.3);
+}
+
+.btn-cart-checkout:active {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 576px) {
+  .btn-cart-continue,
+  .btn-cart-checkout {
+    height: 42px;
+    padding: 10px 20px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Fix Cart Drawer Z-index and Position */
+.offcanvas {
+  z-index: 1080 !important;
+}
+
+.offcanvas-backdrop {
+  z-index: 1070 !important;
+}
+
 /* =============================================
    HERO SLIDER — Full-Width, 100vh Premium Carousel
    ============================================= */
