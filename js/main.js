@@ -704,67 +704,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Category Carousel — Premium Compact Square Cards
-  if ($('.category-carousel').length) {
-    const $categoryCarousel = $('.category-carousel').owlCarousel({
-      loop: true,
-      margin: 24,
-      nav: false,
-      dots: false,
-      smartSpeed: 450,
-      autoplay: false,
-      mouseDrag: true,
-      touchDrag: true,
-      dragEndSpeed: 350,
-      freeDrag: false,
-      lazyLoad: true,
-      responsive: {
-        0: {
-          items: 2,
-          margin: 6,
-          stagePadding: 24
-        },
-        480: {
-          items: 2,
-          margin: 8,
-          stagePadding: 20
-        },
-        768: {
-          items: 4,
-          margin: 16,
-          stagePadding: 0
-        },
-        992: {
-          items: 5,
-          margin: 20,
-          stagePadding: 0
-        },
-        1200: {
-          items: 6,
-          margin: 24,
-          stagePadding: 0
-        }
-      }
-    });
-
-    // Wire up custom navigation buttons
-    const $prevBtn = document.querySelector('.category-nav-prev');
-    const $nextBtn = document.querySelector('.category-nav-next');
-
-    if ($prevBtn) {
-      $prevBtn.addEventListener('click', () => {
-        $categoryCarousel.trigger('prev.owl.carousel', [400]);
-      });
-    }
-
-    if ($nextBtn) {
-      $nextBtn.addEventListener('click', () => {
-        $categoryCarousel.trigger('next.owl.carousel', [400]);
-      });
-    }
-  }
-
-  // ==========================================
+// ==========================================
   // 9. MOBILE NAVIGATION LOGIC — sliding multi-level panels
   // ==========================================
   // Hand-rolled open/close (no Bootstrap Collapse): Collapse drives its own
