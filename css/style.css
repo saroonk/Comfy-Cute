@@ -168,6 +168,21 @@ a:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
+.btn-view-all {
+  background-color: var(--color-heading);
+  color: var(--color-white) !important;
+  border-radius: 8px;
+  padding: 16px 40px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 15px rgba(30, 41, 59, 0.15);
+  transition: var(--transition-smooth);
+}
+.btn-view-all:hover {
+  background-color: #0F172A;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(30, 41, 59, 0.25);
+}
 
 /* --- Top Announcement Bar --- */
 .announcement-bar {
@@ -1478,6 +1493,134 @@ body.announcement-hidden .hero-section {
   color: var(--color-white) !important;
   border-color: var(--color-primary) !important;
 }
+
+/* --- New Arrivals Grid --- */
+.new-arrivals-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px 24px;
+  row-gap: 36px;
+  margin-bottom: 50px;
+}
+
+@media (max-width: 991px) {
+  .new-arrivals-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px 20px;
+    row-gap: 32px;
+  }
+}
+
+@media (max-width: 576px) {
+  .new-arrivals-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 16px;
+    row-gap: 28px;
+  }
+}
+
+.arrival-product-card {
+  background-color: transparent;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.arrival-img-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: var(--color-bg-alt);
+  margin-bottom: 0;
+  box-shadow: none;
+  transition: var(--transition-smooth);
+}
+
+.arrival-product-card:hover .arrival-img-container {
+  box-shadow: 0 8px 24px rgba(30, 41, 59, 0.08);
+}
+
+.arrival-product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-smooth);
+}
+
+.arrival-product-card:hover .arrival-product-img {
+  transform: scale(1.04);
+}
+
+.arrival-wishlist-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--color-white);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-heading);
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(30, 41, 59, 0.1);
+  transition: var(--transition-smooth);
+  z-index: 10;
+}
+
+.arrival-wishlist-btn:hover {
+  background-color: var(--color-sale-badge);
+  color: var(--color-white);
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(255, 90, 95, 0.2);
+}
+
+.arrival-wishlist-btn.active {
+  background-color: var(--color-sale-badge);
+  color: var(--color-white);
+}
+
+.arrival-product-name {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #1E293B;
+  margin-bottom: 4px;
+  margin-top: 8px;
+  line-height: 1.35;
+  max-height: 2.7em;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+}
+
+.arrival-product-card:hover .arrival-product-name {
+  color: var(--color-primary);
+}
+
+.arrival-price {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1f4747;
+}
+
+@media (max-width: 576px) {
+  .arrival-product-name {
+    font-size: 0.9rem;
+    margin-top: 7px;
+  }
+
+  .arrival-price {
+    font-size: 0.9rem;
+  }
+}
+
+
+
 
 /* --- Shop by Age --- */
 .age-card {
