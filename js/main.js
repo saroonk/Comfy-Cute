@@ -833,4 +833,51 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Shop by Category Slider
+  if ($('.category-carousel').length) {
+    $('.category-carousel').owlCarousel({
+      loop: true,
+      margin: 20,
+      nav: true,
+      dots: false,
+      autoplay: false,
+      smartSpeed: 600,
+      mouseDrag: true,
+      touchDrag: true,
+      pullDrag: true,
+      navText: [
+        '<i class="fa-solid fa-chevron-left"></i>',
+        '<i class="fa-solid fa-chevron-right"></i>'
+      ],
+      stagePadding: 30,
+      responsive: {
+        0: {
+          items: 2,
+          margin: 12,
+          stagePadding: 10
+        },
+        576: {
+          items: 3,
+          margin: 16,
+          stagePadding: 15
+        },
+        768: {
+          items: 4,
+          margin: 20,
+          stagePadding: 20
+        },
+        992: {
+          items: 5,
+          margin: 20,
+          stagePadding: 25
+        },
+        1200: {
+          items: 6,
+          margin: 20,
+          stagePadding: 30
+        }
+      }
+    });
+  }
+
 });
