@@ -78,64 +78,29 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ==========================================
-  // 2b. AUTO-HIDE / REVEAL ANNOUNCEMENT BAR ON SCROLL DIRECTION
+  // 2b. ANNOUNCEMENT BAR HIDE ON SCROLL (ONE-TIME, GPU-FRIENDLY)
   // ==========================================
-  // Two stable states only (fully visible / fully hidden). Two things used to
-  // make it flicker: (1) an 8px direction threshold, far smaller than a single
-  // trackpad/mouse-wheel tick, so ordinary scroll noise flipped the state
-  // several times a second; and (2) nothing stopped a new state change from
-  // firing mid-transition, so the bar kept getting yanked back and forth
-  // before it ever reached either end — reading as "stuck half-visible".
-  // Fix: a much larger hysteresis distance, plus a hard lock that ignores
-  // every scroll-driven request until the current transition has fully
-  // finished (matching the 0.45s CSS transition below).
-  const REVEAL_NEAR_TOP = 60;        // always fully show the bar near the top of the page
-  const SCROLL_DELTA_THRESHOLD = 40; // meaningful scroll distance — well above wheel/trackpad noise
-  const STATE_LOCK_MS = 480;         // >= the 0.45s CSS transition; blocks overlapping state changes
-
-  let referenceScrollY = window.scrollY; // scroll position the next comparison is measured from
-  let isStateLocked = false;
-  let stateLockTimer = null;
+  // One-way behavior: announcement bar hides on first scroll beyond 50px
+  // and stays hidden for the rest of the session. It only reappears after
+  // a full page refresh/reload.
+  let announcementHidden = false;
   let scrollTicking = false;
-
-  function setAnnouncementHidden(hidden) {
-    const isCurrentlyHidden = document.body.classList.contains('announcement-hidden');
-    if (isCurrentlyHidden === hidden) return; // already in the requested state — no-op, no restart
-
-    document.body.classList.toggle('announcement-hidden', hidden);
-    adjustLayout();
-
-    // Lock out further state changes until this transition has fully settled.
-    isStateLocked = true;
-    clearTimeout(stateLockTimer);
-    stateLockTimer = setTimeout(() => {
-      isStateLocked = false;
-    }, STATE_LOCK_MS);
-  }
 
   function handleAnnouncementScroll() {
     scrollTicking = false;
 
-    // Never interrupt an animation already in flight.
-    if (isStateLocked) return;
+    // If already hidden, ignore all further scroll events
+    if (announcementHidden) return;
 
-    const currentY = Math.max(window.scrollY, 0);
-
-    if (currentY <= REVEAL_NEAR_TOP) {
-      setAnnouncementHidden(false);
-      referenceScrollY = currentY;
-      return;
-    }
-
-    const delta = currentY - referenceScrollY;
-    if (Math.abs(delta) >= SCROLL_DELTA_THRESHOLD) {
-      setAnnouncementHidden(delta > 0); // net scroll down -> hide, net scroll up -> reveal
-      referenceScrollY = currentY;
+    // Hide announcement bar on first scroll beyond 50px
+    if (window.scrollY > 50) {
+      document.body.classList.add('announcement-hidden');
+      announcementHidden = true;
     }
   }
 
   window.addEventListener('scroll', function () {
-    if (!scrollTicking) {
+    if (!scrollTicking && !announcementHidden) {
       window.requestAnimationFrame(handleAnnouncementScroll);
       scrollTicking = true;
     }
@@ -657,14 +622,13 @@ document.addEventListener('DOMContentLoaded', function () {
       autoplayHoverPause: true,
       nav: false,           // using custom .hero-prev / .hero-next buttons
       dots: true,
-      smartSpeed: 900,
-      animateOut: 'fadeOut',
-      animateIn: 'fadeIn',
+      smartSpeed: 700,
       mouseDrag: true,
       touchDrag: true,
       pullDrag: true,
       freeDrag: false,
-      lazyLoad: false,      // first slide eager-loaded; Owl handles rest
+      lazyLoad: true,
+      video: false
     });
 
     // Wire up custom prev / next buttons
@@ -738,6 +702,66 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }
     });
+  }
+
+  // Category Carousel — Premium Compact Square Cards
+  if ($('.category-carousel').length) {
+    const $categoryCarousel = $('.category-carousel').owlCarousel({
+      loop: true,
+      margin: 24,
+      nav: false,
+      dots: false,
+      smartSpeed: 450,
+      autoplay: false,
+      mouseDrag: true,
+      touchDrag: true,
+      dragEndSpeed: 350,
+      freeDrag: false,
+      lazyLoad: true,
+      responsive: {
+        0: {
+          items: 2,
+          margin: 6,
+          stagePadding: 24
+        },
+        480: {
+          items: 2,
+          margin: 8,
+          stagePadding: 20
+        },
+        768: {
+          items: 4,
+          margin: 16,
+          stagePadding: 0
+        },
+        992: {
+          items: 5,
+          margin: 20,
+          stagePadding: 0
+        },
+        1200: {
+          items: 6,
+          margin: 24,
+          stagePadding: 0
+        }
+      }
+    });
+
+    // Wire up custom navigation buttons
+    const $prevBtn = document.querySelector('.category-nav-prev');
+    const $nextBtn = document.querySelector('.category-nav-next');
+
+    if ($prevBtn) {
+      $prevBtn.addEventListener('click', () => {
+        $categoryCarousel.trigger('prev.owl.carousel', [400]);
+      });
+    }
+
+    if ($nextBtn) {
+      $nextBtn.addEventListener('click', () => {
+        $categoryCarousel.trigger('next.owl.carousel', [400]);
+      });
+    }
   }
 
   // ==========================================
