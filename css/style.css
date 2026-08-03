@@ -167,6 +167,7 @@ a:hover {
   z-index: 1060;
   overflow: hidden;
   transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 /* Auto-hide on scroll down, reveal on scroll up — toggled via JS on <body> */
 body.announcement-hidden .announcement-bar {
@@ -204,6 +205,7 @@ header {
   background-color: #ffffff;
   box-shadow: 0 1px 16px rgba(30, 41, 59, 0.06);
   transition: box-shadow 0.3s ease, padding 0.3s ease, transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 /* On scroll: compact navbar padding + stronger shadow only */
 header.scrolled {
@@ -304,7 +306,7 @@ header.scrolled .navbar {
   background: var(--color-white);
   box-shadow: 0 24px 60px rgba(30, 41, 59, 0.09), 0 4px 16px rgba(140, 189, 188, 0.08);
   border-top: 1px solid var(--color-border);
-  border-bottom: 2px solid var(--color-primary);
+  /* border-bottom: 2px solid var(--color-primary); */
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
