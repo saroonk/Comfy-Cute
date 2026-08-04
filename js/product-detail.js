@@ -11,11 +11,13 @@ document.addEventListener('DOMContentLoaded', function () {
   // Initialize Owl Carousel only after jQuery is available
   if (typeof jQuery !== 'undefined') {
     initializeCarousel();
+    initializeRelatedProductsCarousel();
   } else {
     console.error('jQuery not loaded');
   }
 
   initializeProductDetail();
+  setupMobileNav();
   setupTabSwitching();
   setupSearch();
   setupCart();
@@ -376,4 +378,69 @@ function setupBackToTop() {
       behavior: 'smooth'
     });
   });
+}
+
+// Related Products Carousel
+function initializeRelatedProductsCarousel() {
+  if (typeof jQuery === 'undefined') {
+    console.error('jQuery not loaded for related products carousel');
+    return;
+  }
+
+  const $carousel = jQuery('.related-products-carousel');
+  if ($carousel.length === 0) {
+    return;
+  }
+
+  try {
+    $carousel.owlCarousel({
+      items: 4,
+      loop: true,
+      dots: false,
+      nav: false,
+      autoplay: false,
+      margin: 24,
+      smartSpeed: 500,
+      lazyLoad: false,
+      responsive: {
+        0: {
+          items: 2
+        },
+        576: {
+          items: 2
+        },
+        768: {
+          items: 3
+        },
+        992: {
+          items: 4
+        },
+        1200: {
+          items: 4
+        }
+      }
+    });
+
+    // Setup carousel navigation buttons
+    const prevBtn = document.getElementById('relatedCarouselPrev');
+    const nextBtn = document.getElementById('relatedCarouselNext');
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $carousel.trigger('prev.owl.carousel');
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $carousel.trigger('next.owl.carousel');
+      });
+    }
+  } catch (error) {
+    console.error('Error initializing related products carousel:', error);
+  }
 }
