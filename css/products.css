@@ -19,9 +19,15 @@ body.announcement-hidden .products-hero-section {
 
 @media (max-width: 576px) {
   .products-hero-section {
-    margin-top: 40px;
+    margin-top: 90px;
     padding: 24px 0 0 0;
   }
+
+  body.announcement-hidden .products-hero-section {
+  padding-top: 70px !important;
+  margin-top: 0px;
+  /* border: 3px solid red !important; */
+}
 }
 
 .products-hero-banner {
