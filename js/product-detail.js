@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   initializeProductDetail();
   setupTabSwitching();
-  setupMobileNav();
   setupSearch();
   setupCart();
   setupBackToTop();
@@ -252,53 +251,6 @@ function setupTabSwitching() {
       const activePanel = document.getElementById('tab-' + tabId);
       if (activePanel) {
         activePanel.classList.add('active');
-      }
-    });
-  });
-}
-
-// Mobile Navigation
-function setupMobileNav() {
-  const mobileNavToggle = document.getElementById('mobileNavToggle');
-  const mobileNavDrawer = document.getElementById('mobileNavDrawer');
-  const mobileNavClose = document.querySelector('.mobile-nav-close');
-
-  if (mobileNavToggle && mobileNavDrawer) {
-    mobileNavToggle.addEventListener('click', function () {
-      mobileNavDrawer.classList.add('active');
-    });
-
-    if (mobileNavClose) {
-      mobileNavClose.addEventListener('click', function () {
-        mobileNavDrawer.classList.remove('active');
-      });
-    }
-  }
-
-  const panelButtons = document.querySelectorAll('.mobile-nav-parent');
-  panelButtons.forEach(btn => {
-    btn.addEventListener('click', function () {
-      const panelName = this.dataset.openPanel;
-      const targetPanel = document.querySelector(`[data-panel="${panelName}"]`);
-      const currentPanel = this.closest('.mobile-nav-panel');
-
-      if (targetPanel && currentPanel) {
-        currentPanel.style.display = 'none';
-        targetPanel.style.display = 'flex';
-      }
-    });
-  });
-
-  const backButtons = document.querySelectorAll('.mobile-nav-back');
-  backButtons.forEach(btn => {
-    btn.addEventListener('click', function () {
-      const panelName = this.dataset.openPanel;
-      const targetPanel = document.querySelector(`[data-panel="${panelName}"]`);
-      const currentPanel = this.closest('.mobile-nav-panel');
-
-      if (targetPanel && currentPanel) {
-        currentPanel.style.display = 'none';
-        targetPanel.style.display = 'flex';
       }
     });
   });
