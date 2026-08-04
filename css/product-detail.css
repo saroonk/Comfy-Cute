@@ -2,17 +2,34 @@
    PRODUCT DETAIL PAGE - CUSTOM STYLES
    ==================================== */
 
-.product-detail-page {
-  /* Scope all styles to product detail page only */
-}
+/* .product-detail-page {
+  
+} */
 
 /* ==========================================
    BREADCRUMB SECTION
    ========================================== */
+
+
+
+   /* *{
+  border: 1px solid red !important;
+} */
+
 .product-detail-page .breadcrumb-section {
-  padding: 32px 0;
+  padding: 12px 0;
   background-color: var(--color-bg);
+  margin-top: 120px;
   border-bottom: 1px solid var(--color-border);
+}
+
+
+
+
+@media (max-width:768px) {
+  .product-detail-page .breadcrumb-section {
+    margin-top: 70px;
+  }
 }
 
 .product-detail-page .breadcrumb-list {
@@ -59,7 +76,7 @@
    PRODUCT DETAIL SECTION
    ========================================== */
 .product-detail-page .product-detail-section {
-  padding: 60px 0;
+  padding: 40px 0;
   background-color: var(--color-bg);
 }
 
@@ -476,7 +493,7 @@
   box-shadow: 0 6px 20px rgba(140, 189, 188, 0.3);
 }
 
-.product-detail-page .btn-wishlist {
+.product-detail-page .btn-wishlist-d {
   width: 48px;
   height: 48px;
   padding: 0;
@@ -493,12 +510,12 @@
   flex-shrink: 0;
 }
 
-.product-detail-page .btn-wishlist:hover {
+.product-detail-page .btn-wishlist-d:hover {
   border-color: var(--color-primary);
   color: var(--color-primary);
 }
 
-.product-detail-page .btn-wishlist.active {
+.product-detail-page .btn-wishlist-d.active {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
   color: white;
@@ -545,7 +562,7 @@
    PRODUCT TABS SECTION
    ========================================== */
 .product-detail-page .product-tabs-section {
-  padding: 60px 0;
+  padding: 30px 0;
   background-color: white;
   border-top: 1px solid var(--color-border);
 }
@@ -669,7 +686,7 @@
    ========================================== */
 @media (max-width: 768px) {
   .product-detail-page .product-detail-section {
-    padding: 40px 0;
+    padding: 20px 0;
   }
 
   .product-detail-page .gallery-thumbnails {
@@ -696,7 +713,7 @@
   }
 
   .product-detail-page .product-features {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
     padding-top: 16px;
   }
@@ -719,7 +736,7 @@
     flex: 1 1 auto;
   }
 
-  .product-detail-page .btn-wishlist {
+  .product-detail-page .btn-wishlist-d {
     flex: 0 0 48px;
   }
 
