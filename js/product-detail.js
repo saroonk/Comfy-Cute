@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   initializeProductDetail();
   setupMobileNav();
-  setupTabSwitching();
   setupSearch();
   setupCart();
   setupBackToTop();
@@ -234,27 +233,6 @@ function updateWishlistBadge() {
   const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
   document.querySelectorAll('.wishlist-badge').forEach(badge => {
     badge.textContent = wishlist.length;
-  });
-}
-
-// Tab switching
-function setupTabSwitching() {
-  const tabButtons = document.querySelectorAll('.tab-btn');
-  const tabPanels = document.querySelectorAll('.tab-panel');
-
-  tabButtons.forEach(btn => {
-    btn.addEventListener('click', function () {
-      const tabId = this.dataset.tab;
-
-      tabButtons.forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-
-      tabPanels.forEach(panel => panel.classList.remove('active'));
-      const activePanel = document.getElementById('tab-' + tabId);
-      if (activePanel) {
-        activePanel.classList.add('active');
-      }
-    });
   });
 }
 

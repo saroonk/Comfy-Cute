@@ -588,16 +588,26 @@
   <section class="product-tabs-section">
     <div class="container">
       <div class="tabs-wrapper">
-        <div class="tabs-header">
-          <button class="tab-btn active" data-tab="description">Description</button>
-          <button class="tab-btn" data-tab="fabric">Fabric & Care</button>
-          <button class="tab-btn" data-tab="shipping">Shipping & Returns</button>
-          <button class="tab-btn" data-tab="manufactured">Manufactured By</button>
-        </div>
+        <!-- Bootstrap Nav Tabs -->
+        <ul class="nav nav-tabs" id="productTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="tab-description-btn" data-bs-toggle="tab" data-bs-target="#tab-description" type="button" role="tab" aria-controls="tab-description" aria-selected="true">Description</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab-fabric-btn" data-bs-toggle="tab" data-bs-target="#tab-fabric" type="button" role="tab" aria-controls="tab-fabric" aria-selected="false">Fabric & Care</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab-shipping-btn" data-bs-toggle="tab" data-bs-target="#tab-shipping" type="button" role="tab" aria-controls="tab-shipping" aria-selected="false">Shipping & Returns</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab-manufactured-btn" data-bs-toggle="tab" data-bs-target="#tab-manufactured" type="button" role="tab" aria-controls="tab-manufactured" aria-selected="false">Manufactured By</button>
+          </li>
+        </ul>
 
-        <div class="tabs-content">
+        <!-- Tab Content -->
+        <div class="tab-content" id="productTabsContent">
           <!-- Description Tab -->
-          <div class="tab-panel active" id="tab-description">
+          <div class="tab-pane fade show active" id="tab-description" role="tabpanel" aria-labelledby="tab-description-btn">
             <div class="tab-content-inner">
               <h3>Product Description</h3>
               <p>This elegant midi dress is crafted from premium linen blend fabric that ensures breathability and comfort throughout the day. The minimalist design features a flattering silhouette with a soft drape, making it perfect for both casual and semi-formal occasions.</p>
@@ -614,7 +624,7 @@
           </div>
 
           <!-- Fabric & Care Tab -->
-          <div class="tab-panel" id="tab-fabric">
+          <div class="tab-pane fade" id="tab-fabric" role="tabpanel" aria-labelledby="tab-fabric-btn">
             <div class="tab-content-inner">
               <h3>Fabric Information</h3>
               <p><strong>Material:</strong> 100% Linen Blend</p>
@@ -634,7 +644,7 @@
           </div>
 
           <!-- Shipping & Returns Tab -->
-          <div class="tab-panel" id="tab-shipping">
+          <div class="tab-pane fade" id="tab-shipping" role="tabpanel" aria-labelledby="tab-shipping-btn">
             <div class="tab-content-inner">
               <h3>Shipping Information</h3>
               <p><strong>Shipping Time:</strong> 3-5 business days</p>
@@ -649,7 +659,7 @@
           </div>
 
           <!-- Manufactured By Tab -->
-          <div class="tab-panel" id="tab-manufactured">
+          <div class="tab-pane fade" id="tab-manufactured" role="tabpanel" aria-labelledby="tab-manufactured-btn">
             <div class="tab-content-inner">
               <h3>About COMFY CUTE</h3>
               <p>COMFY CUTE is a premium fashion brand dedicated to creating timeless, comfortable clothing for women and babies. Our collections feature sustainable, organic materials with minimalist designs.</p>
