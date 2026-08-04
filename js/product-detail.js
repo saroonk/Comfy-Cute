@@ -5,11 +5,16 @@
 let selectedSize = 'M';
 let selectedVariant = 'Sage Green';
 let quantity = 1;
-let carousel = null;
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function () {
-  initializeCarousel();
+  // Initialize Owl Carousel only after jQuery is available
+  if (typeof jQuery !== 'undefined') {
+    initializeCarousel();
+  } else {
+    console.error('jQuery not loaded');
+  }
+
   initializeProductDetail();
   setupTabSwitching();
   setupMobileNav();
@@ -20,76 +25,84 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Initialize Owl Carousel
 function initializeCarousel() {
-  const $carousel = $('#productCarousel');
+  try {
+    const $carousel = jQuery('#productCarousel');
+
+    if ($carousel.length === 0) {
+      console.error('Carousel element #productCarousel not found');
+      return;
+    }
+
+    console.log('Initializing Owl Carousel...');
+
+    $carousel.owlCarousel({
+      items: 1,
+      loop: false,
+      dots: false,
+      nav: false,
+      autoplay: false,
+      margin: 0,
+      smartSpeed: 500,
+      lazyLoad: false
+    });
+
+    console.log('Owl Carousel initialized successfully');
+
+    // Setup carousel navigation buttons
+    const prevBtn = document.getElementById('carouselPrev');
+    const nextBtn = document.getElementById('carouselNext');
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        $carousel.trigger('prev.owl.carousel');
+        setTimeout(updateThumbnails, 100);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        $carousel.trigger('next.owl.carousel');
+        setTimeout(updateThumbnails, 100);
+      });
+    }
+  } catch (error) {
+    console.error('Error initializing Owl Carousel:', error);
+  }
+}
+
+// Update thumbnail active state
+function updateThumbnails() {
+  const $carousel = jQuery('#productCarousel');
+  const carouselData = $carousel.data('owl.carousel');
+
+  if (!carouselData) return;
+
+  const currentIndex = carouselData.current();
+  const thumbnails = document.querySelectorAll('.thumbnail');
+
+  thumbnails.forEach((thumb, index) => {
+    thumb.classList.toggle('active', index === currentIndex);
+  });
+}
+
+// Go to slide when thumbnail clicked
+function goToSlide(index) {
+  const $carousel = jQuery('#productCarousel');
 
   if ($carousel.length === 0) {
-    console.error('Carousel element not found');
+    console.error('Carousel not found');
     return;
   }
 
-  $carousel.owlCarousel({
-    items: 1,
-    loop: false,
-    dots: false,
-    nav: false,
-    autoplay: false,
-    margin: 0,
-    smartSpeed: 300,
-    lazyLoad: false,
-    responsive: {
-      0: { items: 1 },
-      576: { items: 1 },
-      768: { items: 1 },
-      1200: { items: 1 }
-    }
-  });
-
-  carousel = $carousel.data('owl.carousel');
-
-  // Carousel navigation buttons
-  const prevBtn = document.getElementById('carouselPrev');
-  const nextBtn = document.getElementById('carouselNext');
-
-  if (prevBtn) {
-    prevBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      $carousel.trigger('prev.owl.carousel');
-      setTimeout(updateActiveThumbnail, 100);
-    });
-  }
-
-  if (nextBtn) {
-    nextBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      $carousel.trigger('next.owl.carousel');
-      setTimeout(updateActiveThumbnail, 100);
-    });
-  }
+  $carousel.trigger('to.owl.carousel', [index, 500]);
+  setTimeout(updateThumbnails, 100);
 }
 
-// Go to specific carousel slide
-function goToSlide(index) {
-  const $carousel = $('#productCarousel');
-  if ($carousel.length > 0) {
-    $carousel.trigger('to.owl.carousel', [index, 300]);
-    setTimeout(updateActiveThumbnail, 100);
-  }
-}
-
-// Update active thumbnail
-function updateActiveThumbnail() {
-  const $carousel = $('#productCarousel');
-  const carouselData = $carousel.data('owl.carousel');
-  const currentIndex = carouselData ? carouselData.current() : 0;
-  const thumbnails = document.querySelectorAll('.thumbnail');
-
-  thumbnails.forEach((thumb, i) => {
-    thumb.classList.toggle('active', i === currentIndex);
-  });
-}
-
-// Initialize product detail page
+// Initialize product detail interactions
 function initializeProductDetail() {
+  // Size button selection
   const sizeButtons = document.querySelectorAll('.size-btn');
   sizeButtons.forEach(btn => {
     btn.addEventListener('click', function () {
@@ -102,21 +115,26 @@ function initializeProductDetail() {
 
 // Select variant
 function selectVariant(element) {
-  const variantBtns = document.querySelectorAll('.variant-btn');
-  variantBtns.forEach(btn => btn.classList.remove('active'));
+  // First, remove active class from ALL variant buttons
+  const allVariantBtns = document.querySelectorAll('.variant-btn');
+  allVariantBtns.forEach(btn => {
+    btn.classList.remove('active');
+  });
+
+  // Then add active class only to the clicked element
   element.classList.add('active');
 
+  // Update selected variant
   selectedVariant = element.dataset.variant;
   const selectedLabel = document.getElementById('selectedVariant');
   if (selectedLabel) {
     selectedLabel.textContent = selectedVariant;
   }
 
-  // Navigate carousel to corresponding index
-  const variantBtnArray = Array.from(variantBtns);
-  const index = variantBtnArray.indexOf(element);
-  if (index >= 0) {
-    goToSlide(index);
+  // Navigate carousel to corresponding variant index
+  const variantIndex = Array.from(allVariantBtns).indexOf(element);
+  if (variantIndex >= 0) {
+    goToSlide(variantIndex);
   }
 }
 
@@ -141,9 +159,8 @@ function addToCart() {
   const price = 2499;
   const qty = quantity;
 
-  // Get current carousel image
-  const carouselItem = document.querySelector('.carousel-item img');
-  const image = carouselItem ? carouselItem.src : '';
+  const $carousel = jQuery('#productCarousel');
+  const currentImg = $carousel.find('.owl-item.active img').attr('src');
 
   const cartItem = {
     id: Date.now(),
@@ -152,7 +169,7 @@ function addToCart() {
     quantity: qty,
     size: selectedSize,
     variant: selectedVariant,
-    image: image
+    image: currentImg || 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=150&auto=format&fit=crop'
   };
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -185,7 +202,6 @@ function addToCart() {
 // Toggle wishlist
 function toggleWishlist() {
   const btn = document.getElementById('btn-wishlist');
-
   btn.classList.toggle('active');
 
   let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
@@ -233,7 +249,10 @@ function setupTabSwitching() {
       this.classList.add('active');
 
       tabPanels.forEach(panel => panel.classList.remove('active'));
-      document.getElementById('tab-' + tabId).classList.add('active');
+      const activePanel = document.getElementById('tab-' + tabId);
+      if (activePanel) {
+        activePanel.classList.add('active');
+      }
     });
   });
 }
@@ -256,7 +275,6 @@ function setupMobileNav() {
     }
   }
 
-  // Mobile nav panel navigation
   const panelButtons = document.querySelectorAll('.mobile-nav-parent');
   panelButtons.forEach(btn => {
     btn.addEventListener('click', function () {
@@ -381,12 +399,16 @@ function removeFromCart(index) {
 function updateCartSubtotal() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-  document.querySelector('.cart-subtotal-price').textContent = '₹' + subtotal.toLocaleString('en-IN');
+  const subtotalElement = document.querySelector('.cart-subtotal-price');
+  if (subtotalElement) {
+    subtotalElement.textContent = '₹' + subtotal.toLocaleString('en-IN');
+  }
 }
 
 // Back to top button
 function setupBackToTop() {
   const backToTopBtn = document.querySelector('.btn-back-to-top');
+  if (!backToTopBtn) return;
 
   window.addEventListener('scroll', function () {
     if (window.scrollY > 300) {

@@ -43,17 +43,18 @@
   </div>
 
   <!-- ==========================================
-       STICKY HEADER (EXACT FROM HOMEPAGE)
+       STICKY HEADER
        ========================================== -->
   <header>
     <div class="container">
       <nav class="navbar navbar-expand-lg">
         <!-- Logo -->
-        <a class="navbar-brand" href="index.html" id="brandLogo">
+        <a class="navbar-brand" href="#home" id="brandLogo">
           <img src="assets/images/logo.jpeg" alt="COMFY CUTE Logo" class="navbar-logo-img">
         </a>
 
-        <!-- Hamburger Toggler (Mobile) -->
+        <!-- Hamburger Toggler (Mobile) — plain JS toggle (no Bootstrap Collapse) so the
+             drawer opens instantly with no dead-time before its own animation starts -->
         <button class="navbar-toggler" type="button" id="mobileNavToggle" aria-controls="mobileNavDrawer" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fa-solid fa-bars-staggered"></i>
         </button>
@@ -62,7 +63,7 @@
         <div class="collapse navbar-collapse" id="navbarContent">
           <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
+              <a class="nav-link active" href="#home">Home</a>
             </li>
 
             <!-- Women Mega Menu -->
@@ -179,15 +180,20 @@
           </ul>
         </div>
 
-        <!-- Right Side Icons -->
+        <!-- Right Side Icons — hidden on mobile (bottom nav handles these) -->
         <div class="header-icons d-none d-lg-flex">
+          <!-- Search -->
           <button class="icon-btn btn-search" aria-label="Search">
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
+
+          <!-- Wishlist -->
           <a href="#wishlist" class="icon-btn" id="wishlistTrigger">
             <i class="fa-regular fa-heart"></i>
             <span class="icon-badge wishlist-badge">0</span>
           </a>
+
+          <!-- Account Dropdown -->
           <div class="dropdown">
             <button class="icon-btn" id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Account">
               <i class="fa-regular fa-user"></i>
@@ -201,6 +207,8 @@
               <li><a class="dropdown-item account-dropdown-item" href="#support"><i class="fa-solid fa-circle-question"></i> Help & Support</a></li>
             </ul>
           </div>
+
+          <!-- Shopping Cart -->
           <button class="icon-btn" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer" aria-label="Cart">
             <i class="fa-solid fa-bag-shopping"></i>
             <span class="icon-badge cart-badge">0</span>
@@ -211,7 +219,14 @@
   </header>
 
   <!-- ==========================================
-       MOBILE NAV DRAWER (EXACT FROM HOMEPAGE)
+       MOBILE MULTI-LEVEL NAV DRAWER (mobile-only)
+       Lives OUTSIDE <header> on purpose: <header> is position:fixed and
+       therefore forms its own stacking context, which would cap this
+       drawer's z-index no matter how high it is set. As a sibling of
+       <header>, it can correctly paint above the announcement bar, the
+       navbar, and all page content.
+       Desktop continues to use the untouched .navbar-nav mega menu
+       inside <header> — this block is mobile-only (d-lg-none).
        ========================================== -->
   <div class="mobile-nav-drawer d-lg-none" id="mobileNavDrawer">
     <div class="mobile-nav-panels">
@@ -224,7 +239,7 @@
           </button>
         </div>
         <ul class="mobile-nav-list">
-          <li><a href="index.html" class="mobile-nav-link">Home</a></li>
+          <li><a href="#home" class="mobile-nav-link">Home</a></li>
           <li>
             <button type="button" class="mobile-nav-link mobile-nav-parent" data-open-panel="women">
               Women <i class="fa-solid fa-chevron-right"></i>
@@ -390,6 +405,12 @@
   </div>
 
   <!-- ==========================================
+       PRODUCT DETAIL PAGE WRAPPER
+       Isolates all product-detail CSS from navbar
+       ========================================== -->
+  <div class="product-detail-page">
+
+  <!-- ==========================================
        BREADCRUMB
        ========================================== -->
   <section class="breadcrumb-section">
@@ -410,9 +431,9 @@
        ========================================== -->
   <section class="product-detail-section">
     <div class="container">
-      <div class="row g-4">
-        <!-- Left: Product Gallery (60%) -->
-        <div class="col-lg-7">
+      <div class="row g-5">
+        <!-- Left: Product Gallery (50%) -->
+        <div class="col-lg-6">
           <div class="product-gallery-wrapper">
           <!-- Main Carousel -->
           <div class="main-carousel-container">
@@ -452,8 +473,8 @@
         </div>
         </div>
 
-        <!-- Right: Product Information (40%) -->
-        <div class="col-lg-5">
+        <!-- Right: Product Information (50%) -->
+        <div class="col-lg-6">
           <div class="product-info-wrapper">
 
           <!-- Badges -->
@@ -484,7 +505,7 @@
                 <span class="variant-value" id="selectedVariant">Sage Green</span>
               </label>
               <div class="variant-selector">
-                <button class="variant-btn active" data-variant="Sage Green" onclick="selectVariant(this)" style="border: 2px solid #8CBDBC;">
+                <button class="variant-btn active" data-variant="Sage Green" onclick="selectVariant(this)">
                   <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=100&auto=format&fit=crop" alt="Sage Green">
                   <span>Sage Green</span>
                 </button>
@@ -641,6 +662,9 @@
       </div>
     </div>
   </section>
+
+  </div>
+  <!-- End: product-detail-page wrapper -->
 
   <!-- ==========================================
        FOOTER (EXACT FROM HOMEPAGE)
