@@ -6,10 +6,15 @@
    HERO SECTION
    ========================================== */
 .products-hero-section {
-  padding: 60px 0 0 0;
+  padding: 80px 0 0 0;
   margin-top: 80px;
   animation: fadeInUp 0.9s cubic-bezier(0.25, 1, 0.5, 1) backwards;
   background-color: var(--color-bg);
+  transition: padding-top 0.3s ease;
+}
+
+body.announcement-hidden .products-hero-section {
+  padding-top: 40px;
 }
 
 @media (max-width: 576px) {
@@ -811,6 +816,11 @@
   gap: 12px;
   margin-top: 14px;
   padding-top: 0px;
+  position: sticky;
+  bottom: 0;
+  background-color: var(--color-white);
+  z-index: 1000;
+  /* box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05); */
   /* border-top: 1px solid var(--color-border); */
 }
 
