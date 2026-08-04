@@ -752,14 +752,30 @@ header.scrolled .navbar {
   position: absolute;
   top: 0;
   right: 0;
-  background: none;
+  background: rgb(0, 0, 0);
+  border-radius: 10%;
   border: none;
-  color: #94A3B8;
-  font-size: 0.9rem;
+  color: #f7f7f7;
+  font-size: 0.8rem;
   transition: var(--transition-fast);
 }
 .cart-item-remove:hover {
-  color: var(--color-sale-badge);
+  /* color: var(--color-sale-badge); */
+  background: rgb(238, 77, 77);
+
+
+}
+
+
+@media (max-width:576px) {
+  .cart-item-remove {
+  border-radius: 10%;
+  
+  font-size: 0.7rem;
+  
+}
+
+  
 }
 
 .cart-drawer-footer {
