@@ -9,7 +9,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 /* --- CSS variables --- */
 :root {
-  --color-primary: #8CBDBC;
+  --color-primary: #8cbdb6;
   --color-primary-hover: #6FAFAE;
   --color-secondary: #A9D6D5;
   --color-bg: #FCFEFE;
@@ -169,7 +169,7 @@ a:hover {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 .btn-view-all {
-  background-color: var(--color-heading);
+  background-color: var(--color-primary);
   color: var(--color-white) !important;
   border-radius: 8px;
   padding: 16px 40px;
@@ -230,21 +230,21 @@ body.announcement-hidden .announcement-bar {
   }
 }
 
-/* --- Always-White Fixed Navbar --- */
+/* --- Premium Branded Fixed Navbar --- */
 header {
   position: fixed;
   top: 40px; /* sits directly below the 40px announcement bar */
   left: 0;
   width: 100%;
   z-index: 1050;
-  background-color: #ffffff;
-  box-shadow: 0 1px 16px rgba(30, 41, 59, 0.06);
+  background-color: var(--color-primary);
+  box-shadow: 0 2px 12px rgba(140, 189, 188, 0.15);
   transition: box-shadow 0.3s ease, transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform, box-shadow;
 }
 /* On scroll: compact navbar padding + stronger shadow only */
 header.scrolled {
-  box-shadow: var(--shadow-premium);
+  box-shadow: 0 8px 24px rgba(140, 189, 188, 0.2);
 }
 /* Moves up when announcement bar hides (first scroll > 50px) */
 body.announcement-hidden header {
@@ -274,7 +274,7 @@ header.scrolled .navbar {
   font-weight: 700;
   font-size: 1.8rem;
   letter-spacing: 1.5px;
-  color: var(--color-heading) !important;
+  color: var(--color-white) !important;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -291,6 +291,33 @@ header.scrolled .navbar {
   color: var(--color-primary);
 }
 
+.navbar-logo-img {
+  height: 45px;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover .navbar-logo-img {
+  transform: scale(1.05);
+}
+
+@media (max-width: 991px) {
+  .navbar-logo-img {
+    height: 38px;
+    max-width: 140px;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar-logo-img {
+    height: 32px;
+    max-width: 120px;
+  }
+}
+
 .logo-dot {
   width: 12px;
   height: 12px;
@@ -303,7 +330,7 @@ header.scrolled .navbar {
   font-family: var(--font-body);
   font-weight: 500;
   font-size: 0.95rem;
-  color: var(--color-heading) !important;
+  color: var(--color-white) !important;
   padding: 8px 16px !important;
   position: relative;
   transition: var(--transition-fast);
@@ -315,7 +342,7 @@ header.scrolled .navbar {
   left: 16px;
   right: 16px;
   height: 2px;
-  background-color: var(--color-primary);
+  background-color: var(--color-white);
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.3s ease;
@@ -488,7 +515,7 @@ header.scrolled .navbar {
   background: none;
   border: none;
   font-size: 1.25rem;
-  color: var(--color-heading);
+  color: var(--color-white);
   position: relative;
   padding: 6px;
   border-radius: 50%;
@@ -500,14 +527,14 @@ header.scrolled .navbar {
   transition: var(--transition-smooth);
 }
 .icon-btn:hover {
-  background-color: var(--color-bg-alt);
-  color: var(--color-primary);
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--color-white);
 }
 .icon-badge {
   position: absolute;
   top: 2px;
   right: 2px;
-  background-color: var(--color-primary);
+  background-color: var(--color-sale-badge);
   color: var(--color-white);
   font-size: 0.68rem;
   font-family: var(--font-body);
@@ -518,7 +545,7 @@ header.scrolled .navbar {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--color-bg);
+  border: 2px solid var(--color-primary);
 }
 
 /* Account Dropdown customization */
@@ -2812,7 +2839,7 @@ footer {
     border: none;
     padding: 0;
     font-size: 1.5rem;
-    color: var(--color-heading);
+    color: var(--color-button-text);
     width: 42px;
     height: 42px;
     display: flex;
