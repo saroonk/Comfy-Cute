@@ -745,31 +745,50 @@
 
   /* Timeline */
   .tracking-timeline {
-    padding: 32px 12px;
+    padding: 28px 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .tracking-timeline::-webkit-scrollbar {
+    display: none;
+  }
+
+  .timeline-track {
+    min-width: 100%;
+    gap: 8px;
   }
 
   .timeline-line {
-    top: 28px;
+    top: 24px;
+    height: 1.5px;
   }
 
   .timeline-step {
-    gap: 6px;
+    gap: 4px;
+    min-width: 70px;
+    flex-shrink: 0;
   }
 
   .step-marker {
-    width: 48px;
-    height: 48px;
-    font-size: 1.1rem;
-    margin-bottom: 12px;
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+    margin-bottom: 10px;
   }
 
   .step-label {
-    font-size: 0.75rem;
-    margin-bottom: 4px;
+    font-size: 0.65rem;
+    margin-bottom: 2px;
+    line-height: 1.2;
   }
 
   .step-date {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
+    line-height: 1.2;
   }
 
   /* Assistance */
@@ -824,6 +843,144 @@
   }
 }
 
+/* Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .tracking-card {
+    padding: 20px 12px;
+  }
+
+  .tracking-card-header {
+    gap: 12px;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+  }
+
+  .order-title {
+    font-size: 1rem;
+  }
+
+  .order-delivery {
+    font-size: 0.8rem;
+  }
+
+  .tracking-value {
+    font-size: 0.75rem;
+  }
+
+  .tracking-label {
+    font-size: 0.65rem;
+  }
+
+  /* Timeline adjustments for small screens */
+  .tracking-timeline {
+    padding: 24px 0;
+  }
+
+  .timeline-track {
+    gap: 6px;
+  }
+
+  .timeline-line {
+    top: 22px;
+    height: 1.5px;
+  }
+
+  .timeline-step {
+    gap: 3px;
+    min-width: 64px;
+  }
+
+  .step-marker {
+    width: 38px;
+    height: 38px;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+  }
+
+  .step-label {
+    font-size: 0.6rem;
+    margin-bottom: 1px;
+  }
+
+  .step-date {
+    font-size: 0.55rem;
+  }
+}
+
+/* Extra Small Mobile (400px and below) */
+@media (max-width: 400px) {
+  .tracking-card {
+    padding: 16px 8px;
+    border-radius: 12px;
+  }
+
+  .tracking-card-header {
+    gap: 8px;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+  }
+
+  .order-title {
+    font-size: 0.95rem;
+  }
+
+  .order-delivery {
+    font-size: 0.75rem;
+  }
+
+  .tracking-value {
+    font-size: 0.7rem;
+  }
+
+  .tracking-label {
+    font-size: 0.6rem;
+  }
+
+  /* Timeline for very small screens with horizontal scroll */
+  .tracking-timeline {
+    padding: 20px 0;
+    margin: 0 -8px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .timeline-track {
+    gap: 4px;
+    width: max-content;
+    padding: 0 0;
+  }
+
+  .timeline-line {
+    top: 20px;
+    height: 1px;
+  }
+
+  .timeline-step {
+    gap: 2px;
+    min-width: 58px;
+    flex-shrink: 0;
+  }
+
+  .step-marker {
+    width: 34px;
+    height: 34px;
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+  }
+
+  .step-label {
+    font-size: 0.55rem;
+    margin-bottom: 0;
+    line-height: 1.1;
+    word-wrap: break-word;
+  }
+
+  .step-date {
+    font-size: 0.5rem;
+    line-height: 1.1;
+  }
+}
+
 /* Extra Small (320px and below) */
 @media (max-width: 319px) {
   .track-order-hero-title {
@@ -840,5 +997,36 @@
 
   .discover-title {
     font-size: 1rem;
+  }
+
+  .tracking-card {
+    padding: 12px 4px;
+  }
+
+  .order-title {
+    font-size: 0.9rem;
+  }
+
+  .tracking-timeline {
+    padding: 16px 0;
+  }
+
+  .timeline-step {
+    min-width: 52px;
+  }
+
+  .step-marker {
+    width: 30px;
+    height: 30px;
+    font-size: 0.7rem;
+    margin-bottom: 4px;
+  }
+
+  .step-label {
+    font-size: 0.5rem;
+  }
+
+  .step-date {
+    font-size: 0.45rem;
   }
 }
