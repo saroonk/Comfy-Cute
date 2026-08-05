@@ -230,52 +230,78 @@ function renderCartItems() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   if (cart.length === 0) {
-    container.innerHTML = '<div style="text-align: center; padding: 40px 20px; color: var(--color-text);">Your cart is empty</div>';
+    container.innerHTML = `
+      <div class="text-center py-5">
+        <i class="fa-solid fa-bag-shopping mb-3" style="font-size: 3rem; color: var(--color-border)"></i>
+        <h5 class="mb-2">Your cart is empty</h5>
+        <p class="text-muted mb-4 small">Looks like you haven't added anything yet.</p>
+        <button class="btn btn-premium btn-premium-primary btn-sm" data-bs-dismiss="offcanvas">Shop Now</button>
+      </div>
+    `;
     return;
   }
 
   container.innerHTML = cart.map((item, index) => `
-    <div class="cart-item" style="display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--color-border);">
-      <img src="${item.image}" alt="${item.name}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
-      <div style="flex: 1;">
-        <h6 style="margin: 0 0 4px 0; font-weight: 600;">${item.name}</h6>
-        <p style="margin: 0; font-size: 0.85rem; color: var(--color-text);">Size: ${item.size} | Variant: ${item.variant}</p>
-        <p style="margin: 8px 0 0 0; font-weight: 600;">₹${(item.price * item.quantity).toLocaleString('en-IN')}</p>
-        <div style="display: flex; gap: 8px; margin-top: 8px;">
-          <button style="padding: 4px 8px; border: 1px solid var(--color-border); background: white; cursor: pointer; border-radius: 4px; font-size: 0.8rem;" onclick="updateCartQty(${index}, -1)">−</button>
-          <span style="padding: 4px 8px;">${item.quantity}</span>
-          <button style="padding: 4px 8px; border: 1px solid var(--color-border); background: white; cursor: pointer; border-radius: 4px; font-size: 0.8rem;" onclick="updateCartQty(${index}, 1)">+</button>
-          <button style="padding: 4px 8px; border: 1px solid #e74c3c; background: white; color: #e74c3c; cursor: pointer; border-radius: 4px; font-size: 0.8rem; margin-left: auto;" onclick="removeFromCart(${index})">Remove</button>
+    <div class="cart-item">
+      <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+      <div class="cart-item-info">
+        <h6 class="cart-item-title">${item.name}</h6>
+        <div class="cart-item-meta">Size: ${item.size} | Variant: ${item.variant}</div>
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="cart-item-price">₹${(item.price * item.quantity).toLocaleString('en-IN')}</span>
+          <div class="cart-item-qty">
+            <button class="cart-qty-btn qty-minus" data-index="${index}">-</button>
+            <span class="cart-qty-val">${item.quantity}</span>
+            <button class="cart-qty-btn qty-plus" data-index="${index}">+</button>
+          </div>
         </div>
       </div>
+      <button class="cart-item-remove" data-index="${index}">
+        <i class="fa-solid fa-trash-can"></i>
+      </button>
     </div>
   `).join('');
 
   updateCartSubtotal();
+
+  // Add event listeners for cart buttons
+  setupCartEventListeners();
 }
 
-// Update cart quantity
-function updateCartQty(index, change) {
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  cart[index].quantity += change;
+// Setup cart event listeners
+function setupCartEventListeners() {
+  const container = document.querySelector('.cart-items-container');
+  if (!container) return;
 
-  if (cart[index].quantity <= 0) {
-    cart.splice(index, 1);
-  }
+  container.addEventListener('click', function (e) {
+    const target = e.target;
+    const btn = target.closest('.cart-qty-btn, .cart-item-remove');
+    if (!btn) return;
 
-  localStorage.setItem('cart', JSON.stringify(cart));
-  updateCartBadge();
-  renderCartItems();
+    const index = parseInt(btn.dataset.index);
+    if (isNaN(index)) return;
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    if (index < 0 || index >= cart.length) return;
+
+    if (btn.classList.contains('qty-plus')) {
+      cart[index].quantity += 1;
+    } else if (btn.classList.contains('qty-minus')) {
+      if (cart[index].quantity > 1) {
+        cart[index].quantity -= 1;
+      } else {
+        cart.splice(index, 1);
+      }
+    } else if (btn.classList.contains('cart-item-remove')) {
+      cart.splice(index, 1);
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartBadge();
+    renderCartItems();
+  });
 }
 
-// Remove from cart
-function removeFromCart(index) {
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  cart.splice(index, 1);
-  localStorage.setItem('cart', JSON.stringify(cart));
-  updateCartBadge();
-  renderCartItems();
-}
 
 // Update cart subtotal
 function updateCartSubtotal() {
