@@ -64,6 +64,11 @@ body {
   scroll-behavior: smooth;
 }
 
+/* Hide Mobile Logo on Desktop/Tablet */
+.auth-mobile-logo {
+  display: none;
+}
+
 .auth-card {
   width: 100%;
   max-width: 500px;
@@ -405,19 +410,21 @@ body {
   }
 }
 
-/* Mobile (576px and below) - Restore Normal Scrolling */
+/* Mobile (576px and below) - Branded Design */
 @media (max-width: 575px) {
   /* Allow page to scroll on mobile */
   html,
   body {
     height: auto;
     overflow: visible;
+    background-color: var(--color-primary);
   }
 
   .auth-page {
     height: auto;
     flex-direction: column;
     overflow: visible;
+    background-color: var(--color-primary);
   }
 
   .auth-page .container-fluid {
@@ -441,20 +448,103 @@ body {
     height: auto;
     min-height: 100vh;
     overflow: visible;
-    padding: 32px 16px;
+    padding: 40px 16px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 28px;
+    background-color: var(--color-primary);
+  }
+
+  /* Mobile Logo */
+  .auth-mobile-logo {
+    width: 140px;
+    height: auto;
+    object-fit: contain;
+    margin: 0;
+    display: block;
   }
 
   .auth-card {
     width: 100%;
     max-width: 100%;
     margin: 0 auto;
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    padding: 32px 20px;
+  }
+
+  /* Mobile Toggle Styling */
+  .auth-toggle {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    border-bottom: none;
+    padding: 4px;
+    gap: 4px;
+  }
+
+  .auth-toggle-btn {
+    color: var(--color-text);
+    padding: 10px 24px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 0.8rem;
+    background-color: transparent;
+  }
+
+  .auth-toggle-btn.active {
+    color: var(--color-primary);
+    background-color: white;
+    font-weight: 700;
+  }
+
+  .auth-toggle-btn:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .auth-toggle-btn.active:hover {
+    color: var(--color-primary);
+    background-color: white;
+  }
+
+  .auth-toggle-indicator {
+    display: none;
+  }
+
+  /* Mobile Form Title & Subtitle */
+  .auth-title {
+    color: var(--color-heading);
+  }
+
+  .auth-subtitle {
+    color: var(--color-text);
+  }
+
+  /* Mobile Action Button */
+  .auth-btn-primary {
+    background-color: white;
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  .auth-btn-primary:hover {
+    background-color: #f5f5f5;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .auth-btn-primary:active {
+    background-color: #f0f0f0;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
   }
 
   .auth-toggle-wrapper {
     margin-bottom: 32px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
 
   .auth-title {
