@@ -1,0 +1,844 @@
+/* ====================================
+   TRACK ORDER PAGE - STYLES
+   ==================================== */
+
+/* ==========================================
+   HERO SECTION
+   ========================================== */
+.track-order-hero {
+  background-image: url('../assets/images/banner.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.track-order-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.32);
+  z-index: 1;
+}
+
+.track-order-hero .container {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.track-order-hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.track-order-hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.track-order-hero-subtitle {
+  font-size: 1rem;
+  color: whitesmoke;
+  margin: 0;
+  max-width: 600px;
+  line-height: 1.8;
+  font-weight: 400;
+}
+
+.btn-hero-primary {
+  display: inline-block;
+  padding: 14px 36px;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.btn-hero-primary:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(140, 189, 188, 0.3);
+}
+
+/* ==========================================
+   TRACK ORDER FORM SECTION
+   ========================================== */
+.track-order-form-section {
+  padding: 60px 0;
+  background-color: var(--color-bg);
+}
+
+.track-order-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 48px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.track-order-form-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-heading);
+  text-align: center;
+  margin-bottom: 32px;
+  line-height: 1.3;
+}
+
+.track-order-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-heading);
+  display: block;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.track-order-input {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 0.95rem;
+  border: 1.5px solid var(--color-border);
+  border-radius: 8px;
+  background-color: white;
+  color: var(--color-heading);
+  transition: all 0.3s ease;
+  font-family: inherit;
+  outline: none;
+}
+
+.track-order-input::placeholder {
+  color: #999;
+}
+
+.track-order-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(140, 189, 188, 0.1);
+  background-color: white;
+}
+
+.track-order-btn {
+  width: 100%;
+  padding: 16px 32px;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 24px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 24px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.track-order-btn:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(140, 189, 188, 0.3);
+}
+
+.track-order-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(140, 189, 188, 0.2);
+}
+
+/* ==========================================
+   ORDER STATUS SECTION
+   ========================================== */
+.order-status-section {
+  padding: 60px 0;
+  background-color: var(--color-bg);
+}
+
+.tracking-card {
+  background-color: white;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   TRACKING CARD HEADER
+   ========================================== */
+.tracking-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+}
+
+.tracking-divider {
+  height: 1px;
+  background-color: var(--color-border);
+  margin-bottom: 0;
+}
+
+.order-info-left {
+  flex: 1;
+}
+
+.order-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-heading);
+  margin: 0 0 8px 0;
+}
+
+.order-delivery {
+  font-size: 0.95rem;
+  color: var(--color-text);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.order-info-right {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.tracking-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.tracking-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.tracking-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-heading);
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+}
+
+/* ==========================================
+   HORIZONTAL TRACKING TIMELINE
+   ========================================== */
+.tracking-timeline {
+  padding: 40px 20px;
+  position: relative;
+}
+
+.timeline-track {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* Timeline Line */
+.timeline-line {
+  position: absolute;
+  top: 32px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    var(--color-primary) 0%,
+    var(--color-primary) 66.666%,
+    var(--color-border) 66.666%,
+    var(--color-border) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Timeline Step */
+.timeline-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding-top: 8px;
+}
+
+.step-marker {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-step.completed .step-marker {
+  background-color: var(--color-primary);
+  box-shadow: 0 4px 16px rgba(140, 189, 188, 0.25);
+}
+
+.timeline-step.active .step-marker {
+  background-color: var(--color-primary);
+  box-shadow: 0 0 0 6px rgba(140, 189, 188, 0.15);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 6px rgba(140, 189, 188, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(140, 189, 188, 0.08);
+  }
+  100% {
+    box-shadow: 0 0 0 6px rgba(140, 189, 188, 0.15);
+  }
+}
+
+.step-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-heading);
+  margin: 0 0 4px 0;
+  letter-spacing: 0.5px;
+  line-height: 1.3;
+}
+
+.step-date {
+  font-size: 0.75rem;
+  color: var(--color-text);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ==========================================
+   NEED ASSISTANCE SECTION
+   ========================================== */
+.need-assistance-section {
+  padding: 60px 0;
+  background-color: var(--color-bg);
+}
+
+.assistance-premium-card {
+  background-color: white;
+  border-radius: 16px;
+  padding: 56px 48px;
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+.assistance-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--color-heading);
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.assistance-subtitle {
+  font-size: 0.95rem;
+  color: var(--color-text);
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.assistance-buttons-group {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.assistance-btn-outline {
+  padding: 14px 40px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: 2px solid var(--color-primary);
+  border-radius: 24px;
+  background-color: transparent;
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  letter-spacing: 0.5px;
+  text-transform: capitalize;
+  font-size: 0.9rem;
+}
+
+.assistance-btn-outline:hover {
+  background-color: var(--color-primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(140, 189, 188, 0.25);
+}
+
+.assistance-btn-outline:active {
+  transform: translateY(0);
+}
+
+.assistance-btn-outline i {
+  font-size: 1.1rem;
+}
+
+/* ==========================================
+   DISCOVER SECTION (BOTTOM CTA)
+   ========================================== */
+.discover-section {
+  background-image: url('../assets/images/wishlisthero.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.discover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.32);
+  z-index: 1;
+}
+
+.discover-section .container {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.discover-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.discover-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.discover-subtitle {
+  font-size: 0.95rem;
+  color: whitesmoke;
+  max-width: 500px;
+  margin: 0;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.btn-cta-primary {
+  display: inline-block;
+  padding: 14px 36px;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.btn-cta-primary:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(140, 189, 188, 0.3);
+}
+
+/* ==========================================
+   ALERT NOTIFICATIONS
+   ========================================== */
+.alert-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  max-width: 400px;
+  padding: 16px 20px;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  z-index: 9999;
+  animation: slideInRight 0.3s ease-out;
+  opacity: 0;
+  transform: translateX(400px);
+  transition: all 0.3s ease;
+}
+
+.alert-notification.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(400px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.alert-success {
+  background-color: #e8f5e9;
+  border-left: 4px solid #4caf50;
+  color: #2e7d32;
+}
+
+.alert-error {
+  background-color: #ffebee;
+  border-left: 4px solid #f44336;
+  color: #c62828;
+}
+
+.alert-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+}
+
+.alert-content i {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.alert-close {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-left: auto;
+  padding: 0;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alert-close:hover {
+  opacity: 0.7;
+}
+
+/* Mobile Alert Positioning */
+@media (max-width: 575px) {
+  .alert-notification {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    max-width: none;
+    margin: 0 auto;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
+
+/* Tablet (768px - 991px) */
+@media (max-width: 991px) {
+  .track-order-hero {
+    height: 400px;
+    background-attachment: scroll;
+  }
+
+  .track-order-hero-title {
+    font-size: 2rem;
+  }
+
+  .track-order-hero-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .track-order-card {
+    padding: 36px;
+  }
+
+  .track-order-form-title {
+    font-size: 1.6rem;
+  }
+
+  /* Tracking Card */
+  .tracking-card {
+    padding: 32px;
+  }
+
+  .tracking-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .order-info-right {
+    text-align: left;
+  }
+
+  .tracking-info {
+    align-items: flex-start;
+  }
+
+  .timeline-step {
+    gap: 8px;
+  }
+
+  .step-label {
+    font-size: 0.8rem;
+  }
+
+  .step-date {
+    font-size: 0.7rem;
+  }
+
+  /* Assistance Card */
+  .assistance-premium-card {
+    padding: 40px 32px;
+  }
+
+  .discover-section {
+    height: 300px;
+    background-attachment: scroll;
+  }
+
+  .discover-title {
+    font-size: 1.8rem;
+  }
+}
+
+/* Mobile (576px and below) */
+@media (max-width: 575px) {
+  .track-order-hero {
+    height: 300px;
+    margin-top: 0;
+  }
+
+  .track-order-hero-title {
+    font-size: 1.4rem;
+  }
+
+  .track-order-hero-subtitle {
+    font-size: 0.8rem;
+    max-width: 100%;
+  }
+
+  .btn-hero-primary {
+    padding: 12px 28px;
+    font-size: 0.8rem;
+  }
+
+  /* Form Card */
+  .track-order-card {
+    padding: 24px;
+    margin: 0 16px;
+  }
+
+  .track-order-form-title {
+    font-size: 1.2rem;
+    margin-bottom: 24px;
+  }
+
+  .track-order-label {
+    font-size: 0.8rem;
+  }
+
+  .track-order-input {
+    padding: 11px 12px;
+    font-size: 0.85rem;
+  }
+
+  .track-order-btn {
+    padding: 12px 24px;
+    font-size: 0.85rem;
+    margin-top: 16px;
+  }
+
+  /* Order Status */
+  .order-status-section {
+    padding: 40px 0;
+  }
+
+  .tracking-card {
+    padding: 24px;
+    margin: 0 16px;
+  }
+
+  .tracking-card-header {
+    gap: 16px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+
+  .order-title {
+    font-size: 1.2rem;
+    margin-bottom: 6px;
+  }
+
+  .order-delivery {
+    font-size: 0.85rem;
+  }
+
+  .tracking-value {
+    font-size: 0.85rem;
+  }
+
+  /* Timeline */
+  .tracking-timeline {
+    padding: 32px 12px;
+  }
+
+  .timeline-line {
+    top: 28px;
+  }
+
+  .timeline-step {
+    gap: 6px;
+  }
+
+  .step-marker {
+    width: 48px;
+    height: 48px;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
+
+  .step-label {
+    font-size: 0.75rem;
+    margin-bottom: 4px;
+  }
+
+  .step-date {
+    font-size: 0.65rem;
+  }
+
+  /* Assistance */
+  .need-assistance-section {
+    padding: 40px 0;
+  }
+
+  .assistance-premium-card {
+    padding: 32px 20px;
+    margin: 0 16px;
+  }
+
+  .assistance-title {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+  }
+
+  .assistance-subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 28px;
+  }
+
+  .assistance-buttons-group {
+    gap: 12px;
+    flex-direction: column;
+  }
+
+  .assistance-btn-outline {
+    width: 100%;
+    padding: 13px 28px;
+    font-size: 0.85rem;
+  }
+
+  /* Discover */
+  .discover-section {
+    height: 250px;
+    margin-top: 40px;
+  }
+
+  .discover-title {
+    font-size: 1.2rem;
+  }
+
+  .discover-subtitle {
+    font-size: 0.8rem;
+    max-width: 90%;
+  }
+
+  .btn-cta-primary {
+    padding: 12px 28px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Extra Small (320px and below) */
+@media (max-width: 319px) {
+  .track-order-hero-title {
+    font-size: 1.1rem;
+  }
+
+  .track-order-form-title {
+    font-size: 1rem;
+  }
+
+  .assistance-title {
+    font-size: 1.1rem;
+  }
+
+  .discover-title {
+    font-size: 1rem;
+  }
+}
